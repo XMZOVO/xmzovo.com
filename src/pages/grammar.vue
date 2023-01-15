@@ -1,6 +1,6 @@
 <script>
 if (typeof (window) !== 'undefined')
-  window.location.href = 'http://36.139.161.136:2052/grammar'
+  window.location.href = 'https://xmzovo.com:4433/grammar'
 </script>
 
 <template>
