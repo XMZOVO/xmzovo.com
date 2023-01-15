@@ -14,8 +14,9 @@ const navItem = $ref<{ name: string; link: string }[]>([
   },
 ])
 
-let activeRoute = $ref('/')
 const router = useRouter()
+const route = useRoute()
+let activeRoute = $ref(route.path)
 
 onBeforeRouteUpdate((to, from) => {
   activeRoute = to.path

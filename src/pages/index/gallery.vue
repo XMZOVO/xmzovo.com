@@ -29,10 +29,6 @@ const column1 = ref<HTMLElement | null>(null)
 const column2 = ref<HTMLElement | null>(null)
 const column3 = ref<HTMLElement | null>(null)
 const view = ref<HTMLElement | null>(null)
-const col1Size = useElementSize(column1)
-const col2Size = useElementSize(column2)
-const col3Size = useElementSize(column3)
-const viewSize = useElementSize(view)
 
 const imgColList = computed(() => {
   const col1: string[] = []
@@ -56,22 +52,22 @@ onMounted(() => {
     gsap.to('.c1', {
       duration: imageList.length * 1.5,
       ease: 'none',
-      y: `-=${col1Size.height.value - viewSize.height.value}`,
+      y: '-=100%',
       repeat: -1,
     })
     gsap.to('.c2', {
       duration: imageList.length * 1.5,
       ease: 'none',
-      y: `+=${col2Size.height.value - viewSize.height.value}`,
+      y: '+=100%',
       repeat: -1,
     })
     gsap.to('.c3', {
       duration: imageList.length * 1.5,
       ease: 'none',
-      y: `-=${col3Size.height.value - viewSize.height.value}`,
+      y: '-=100%',
       repeat: -1,
     })
-  }, 300)
+  }, 500)
 })
 </script>
 
@@ -79,7 +75,7 @@ onMounted(() => {
   <div flex w-full justify-between h-full gap-2 px-10>
     <div ref="view" flex flex-col w-full of-y-clip of-x-visible relative hover="z-2">
       <div ref="column1" class="c1" absolute flex flex-col gap-2>
-        <TheAiImg v-for="item in imgColList[0]" :key="item" :src="item" />
+        <TheAiImg v-for="item in imgColList[0]" :key="item" class="imgs" :src="item" />
       </div>
     </div>
     <div flex flex-col w-full gap-2 of-y-clip of-x-visible flex-col-reverse relative hover="z-2">
