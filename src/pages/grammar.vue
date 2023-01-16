@@ -21,6 +21,8 @@ let dicGrammar = $ref<Grammar[]>([])
 let imageSrc = $ref('')
 let selectedImgPath = $ref('')
 
+const ip = 'https://zhongpeiying.com:8081'
+
 const bookList = $ref<Book[]>([
   { name: '蓝宝书', active: true },
   { name: '考前对策', active: true },
@@ -55,8 +57,7 @@ watch(inputContent, (val) => {
 })
 
 async function fetchGrammar(title: string) {
-  const res = await axios({ url: `/api/grammar/title/${title}`, method: 'GET' })
-  console.log(res)
+  const res = await axios({ url: `${ip}/grammar/title/${title}`, method: 'GET' })
 
   if (res.data) {
     blueGrammar = res.data.blue
@@ -67,7 +68,7 @@ async function fetchGrammar(title: string) {
 }
 
 function selectGrammar(grammar: Grammar) {
-  imageSrc = `/api/file/${grammar.path}`
+  imageSrc = `${ip}/file/${grammar.path}`
   selectedImgPath = grammar.path
 }
 
@@ -76,7 +77,7 @@ function preImg() {
   const preFix = selectedImgPath.split('(')[0]
   const suffix = selectedImgPath.split('(')[1].split(')')[1]
   selectedImgPath = `${preFix}(${page})${suffix}`
-  imageSrc = `/api/file/${preFix}(${page})${suffix}`
+  imageSrc = `${ip}/file/${preFix}(${page})${suffix}`
 }
 
 function nextImg() {
@@ -84,7 +85,7 @@ function nextImg() {
   const preFix = selectedImgPath.split('(')[0]
   const suffix = selectedImgPath.split('(')[1].split(')')[1]
   selectedImgPath = `${preFix}(${page})${suffix}`
-  imageSrc = `/api/file/${preFix}(${page})${suffix}`
+  imageSrc = `${ip}/file/${preFix}(${page})${suffix}`
 }
 </script>
 
