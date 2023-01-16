@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const imageList
-= [
+= $ref([
   '/ai/00006-3306937555-1girls, absurdres, alternate costume, arms behind back, bangs, bare shoulders, beach, bikini, blush, breasts, brown eyes, brown.png',
   '/ai/00007-1506516237-a young women in purple dress,smile.png',
   '/ai/00008-196781799-a young women in purple dress,smile.png',
@@ -26,7 +26,7 @@ const imageList
   '/ai/00060-740839559-masterpiece, best quality, ultra-detailed, illustration,1girl, solo, young, white-collar, working, woman, drinking, drunk, walki.png',
   '/ai/00061-2079707877-masterpiece, best quality, ultra-detailed, illustration,1girl, solo, young, white-collar, working, woman, drinking, drunk, walki.png',
   '/ai/00051-62243867-1girl, solo, young, white-collar, working, woman, drinking, drunk, walking, unsteady, street, background.png',
-]
+])
 const loadedImgList = ref<boolean[]>([])
 
 watchArray(loadedImgList, async (value, oldValue) => {
@@ -47,6 +47,7 @@ watchArray(loadedImgList, async (value, oldValue) => {
 })
 
 const imgColList = computed(() => {
+  // 如果isLargeScreen为true将imageList分为三列
   const col1: string[] = []
   const col2: string[] = []
   const col3: string[] = []
@@ -63,6 +64,8 @@ const imgColList = computed(() => {
   return [col1, col2, col3]
 })
 
+// 我也看不懂这个函数的逻辑，但是它可以实现无限循环的滚动效果
+// TODO：修改循环后图片间隔增加的问题
 function verticalLoop(elements: HTMLElement[], speed: number) {
   elements = gsap.utils.toArray(elements)
   const firstBounds = elements[0].getBoundingClientRect()
@@ -103,10 +106,12 @@ function imgLoaded() {
 </script>
 
 <template>
-  <div flex w-full gap-2 px-20>
-    <div v-for="it, i in imgColList" :key="i" flex flex-col w-full gap-2 of-y-clip :class="`c${i + 1}`">
-      <div v-for="item in it" :key="item" class="imgs" hover="z-2">
-        <TheAiImg :src="item" @load="imgLoaded" />
+  <div flex w-full px-20>
+    <div grid grid-cols-1 md:grid-cols-3 gap-2>
+      <div v-for="it, i in imgColList" :key="i" flex flex-col w-full gap-2 of-y-clip :class="[`c${i + 1}`]">
+        <div v-for="item in it" :key="item" class="imgs" hover="z-2">
+          <TheAiImg :src="item" @load="imgLoaded" />
+        </div>
       </div>
     </div>
   </div>

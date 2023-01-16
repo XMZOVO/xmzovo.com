@@ -11,6 +11,8 @@
     "up": "taze major -I"
   },
   "dependencies": {
+    "@babylonjs/core": "5.0.0-rc.13",
+    "@babylonjs/loaders": "^5.42.0",
     "@vueuse/core": "^9.6.0",
     "axios": "^1.2.2",
     "gsap": "^3.11.4",
