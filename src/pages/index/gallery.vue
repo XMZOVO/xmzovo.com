@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+gsap.registerPlugin(ScrollTrigger)
 
 const imageList
 = [
@@ -25,10 +27,23 @@ const imageList
   '/ai/00061-2079707877-masterpiece, best quality, ultra-detailed, illustration,1girl, solo, young, white-collar, working, woman, drinking, drunk, walki.png',
   '/ai/00051-62243867-1girl, solo, young, white-collar, working, woman, drinking, drunk, walking, unsteady, street, background.png',
 ]
-const column1 = ref<HTMLElement | null>(null)
-const column2 = ref<HTMLElement | null>(null)
-const column3 = ref<HTMLElement | null>(null)
-const view = ref<HTMLElement | null>(null)
+const loadedImgList = ref<boolean[]>([])
+
+watchArray(loadedImgList, async (value, oldValue) => {
+  if (value.length === imageList.length) {
+    gsap.utils.toArray('.c1').forEach((line: any, i) => {
+      const speed = 200 // (in pixels per second)
+      const links = line.querySelectorAll('.imgs')
+
+      const tl = verticalLoop(links, (i % 2 === 0) ? -speed : speed)
+
+      links.forEach((link: any) => {
+        link.addEventListener('mouseenter', () => gsap.to(tl, { timeScale: 0, overwrite: true }))
+        link.addEventListener('mouseleave', () => gsap.to(tl, { timeScale: 1, overwrite: true }))
+      })
+    })
+  }
+})
 
 const imgColList = computed(() => {
   const col1: string[] = []
@@ -47,46 +62,57 @@ const imgColList = computed(() => {
   return [col1, col2, col3]
 })
 
-onMounted(() => {
-  setTimeout(() => {
-    gsap.to('.c1', {
-      duration: imageList.length * 1.5,
+function verticalLoop(elements: HTMLElement[], speed: number) {
+  elements = gsap.utils.toArray(elements)
+  const firstBounds = elements[0].getBoundingClientRect()
+  const lastBounds = elements[elements.length - 1].getBoundingClientRect()
+  const top = firstBounds.top - firstBounds.height - Math.abs(elements[1].getBoundingClientRect().top - firstBounds.bottom)
+  const bottom = lastBounds.top
+  const distance = bottom - top
+  const duration = Math.abs(distance / speed)
+  const tl = gsap.timeline({ repeat: -1 })
+  const plus = speed < 0 ? '-=' : '+='
+  const minus = speed < 0 ? '+=' : '-='
+  elements.forEach((el) => {
+    const bounds = el.getBoundingClientRect()
+    let ratio = Math.abs((bottom - bounds.top) / distance)
+    if (speed < 0)
+      ratio = 1 - ratio
+
+    tl.to(el, {
+      y: plus + distance * ratio,
+      duration: duration * ratio,
       ease: 'none',
-      y: '-=100%',
-      repeat: -1,
-    })
-    gsap.to('.c2', {
-      duration: imageList.length * 1.5,
+    }, 0)
+    tl.fromTo(el, {
+      y: minus + distance,
+    }, {
+      y: plus + (1 - ratio) * distance,
       ease: 'none',
-      y: '+=100%',
-      repeat: -1,
-    })
-    gsap.to('.c3', {
-      duration: imageList.length * 1.5,
-      ease: 'none',
-      y: '-=100%',
-      repeat: -1,
-    })
-  }, 500)
-})
+      duration: (1 - ratio) * duration,
+      immediateRender: false,
+    }, duration * ratio)
+  })
+  return tl
+}
+
+function imgLoaded() {
+  loadedImgList.value = [...loadedImgList.value, true]
+}
 </script>
 
 <template>
-  <div flex w-full justify-between h-full gap-2 px-10>
-    <div ref="view" flex flex-col w-full of-y-clip of-x-visible relative hover="z-2">
-      <div ref="column1" class="c1" absolute flex flex-col gap-2>
-        <TheAiImg v-for="item in imgColList[0]" :key="item" class="imgs" :src="item" />
-      </div>
-    </div>
-    <div flex flex-col w-full gap-2 of-y-clip of-x-visible flex-col-reverse relative hover="z-2">
-      <div ref="column2" class="c2" absolute gap-2 flex flex-col>
-        <TheAiImg v-for="item in imgColList[1]" :key="item" :src="item" />
-      </div>
-    </div>
-    <div flex flex-col w-full gap-2 of-y-clip of-x-visible relative hover="z-2">
-      <div ref="column3" class="c3" absolute gap-2 flex flex-col>
-        <TheAiImg v-for="item in imgColList[1]" :key="item" :src="item" />
+  <div flex w-full justify-between h-full gap-2 px-10 relative>
+    <div v-for="it, i in imgColList" :key="i" flex flex-col w-full gap-2 of-y-clip hover="z-2" class="c1">
+      <div v-for="item in it" :key="item" class="imgs">
+        <TheAiImg :src="item" @load="imgLoaded" />
       </div>
     </div>
   </div>
 </template>
+
+<style>
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
+</style>
