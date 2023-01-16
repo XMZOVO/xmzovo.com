@@ -2,8 +2,6 @@ lockfileVersion: 5.4
 
 specifiers:
   '@antfu/eslint-config': ^0.33.1
-  '@babylonjs/core': 5.0.0-rc.13
-  '@babylonjs/loaders': ^5.42.0
   '@iconify-json/carbon': ^1.1.11
   '@types/node': ^18.11.13
   '@unocss/reset': ^0.47.6
@@ -30,8 +28,6 @@ specifiers:
   vue-tsc: ^1.0.13
 
 dependencies:
-  '@babylonjs/core': 5.0.0-rc.13
-  '@babylonjs/loaders': 5.42.0_i7bb2w3ll3z5hvgc5vcsesrgdy
   '@vueuse/core': 9.6.0_vue@3.2.45
   axios: 1.2.2
   gsap: 3.11.4
@@ -243,21 +239,6 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
     dev: true
-
-  /@babylonjs/core/5.0.0-rc.13:
-    resolution: {integrity: sha512-2Ll3jI0240UiywtDcxoicD8Sy7ShscBL8/v6iIP9ImQiZ7ztxrUaxdqL4o18ZnX3yhQE6PzcmITXbiO71zbwzg==}
-    dependencies:
-      tslib: 2.4.1
-    dev: false
-
-  /@babylonjs/loaders/5.42.0_i7bb2w3ll3z5hvgc5vcsesrgdy:
-    resolution: {integrity: sha512-ARAn8wmwNTMbDU42kFJxd2xlPETkvtHeFbE5nnNBD9XbuUxIIwghjFiHNorFZxenjIkaXCAq0BomczVEGyVtZw==}
-    peerDependencies:
-      '@babylonjs/core': ^5.22.0
-      babylonjs-gltf2interface: ^5.22.0
-    dependencies:
-      '@babylonjs/core': 5.0.0-rc.13
-    dev: false
 
   /@esbuild/android-arm/0.16.4:
     resolution: {integrity: sha512-rZzb7r22m20S1S7ufIc6DC6W659yxoOrl7sKP1nCYhuvUlnCFHVSbATG4keGUtV8rDz11sRRDbWkvQZpzPaHiw==}
@@ -4684,10 +4665,6 @@ packages:
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
-
-  /tslib/2.4.1:
-    resolution: {integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==}
-    dev: false
 
   /tsutils/3.21.0_typescript@4.9.4:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}

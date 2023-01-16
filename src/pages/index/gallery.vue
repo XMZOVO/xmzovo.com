@@ -29,7 +29,7 @@ const imageList
 ])
 const loadedImgList = ref<boolean[]>([])
 
-watchArray(loadedImgList, async (value, oldValue) => {
+watchArray(loadedImgList, async (value) => {
   if (value.length === imageList.length) {
     for (let i = 1; i <= 3; i++) {
       const line = document.querySelector(`.c${i}`) as HTMLElement

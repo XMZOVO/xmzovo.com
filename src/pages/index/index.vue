@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { BaseScene } from '../babylon/baseScene'
+import gsap from 'gsap'
 
-let base3D: BaseScene
-const renderCanvas = ref(null)
+const tl = gsap.timeline({ paused: true })
 
-onMounted(async () => {
-  base3D = new BaseScene(renderCanvas.value!)
+onMounted(() => {
+  tl.to('.icon', { duration: 1, scale: 1.2, opacity: 1, repeat: -1, yoyo: true, ease: 'none' })
+  tl.play()
 })
 </script>
 
 <template>
-  <div flex flex-col flex-grow justify-between>
-    <canvas ref="renderCanvas" outline-none />
+  <div flex flex-col items-center flex-grow justify-between>
+    <div class="icon" i-carbon-construction text-2xl flex-1 op50 />
     <p text-xl font-bold op60 py-5>
       -WIP-
     </p>
