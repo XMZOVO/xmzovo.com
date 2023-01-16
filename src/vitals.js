@@ -12,10 +12,15 @@ function getConnectionSpeed() {
 }
 
 function sendToAnalytics(metric, options) {
+  const page = Object.entries(options.params).reduce(
+    (acc, [key, value]) => acc.replace(value, `[${key}]`),
+    options.path,
+  )
+
   const body = {
     dsn: options.analyticsId, // qPgJqYH9LQX5o31Ormk8iWhCxZO
     id: metric.id, // v2-1653884975443-1839479248192
-    page: options.path, // /blog/my-test
+    page, // /blog/[slug]
     href: location.href, // https://my-app.vercel.app/blog/my-test
     event_name: metric.name, // TTFB
     value: metric.value.toString(), // 60.20000000298023
