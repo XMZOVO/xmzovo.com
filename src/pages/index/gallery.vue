@@ -103,7 +103,7 @@ function imgLoaded() {
 </script>
 
 <template>
-  <div flex w-full gap-2 px-10>
+  <div flex w-full gap-2 px-20>
     <div v-for="it, i in imgColList" :key="i" flex flex-col w-full gap-2 of-y-clip :class="`c${i + 1}`">
       <div v-for="item in it" :key="item" class="imgs" hover="z-2">
         <TheAiImg :src="item" @load="imgLoaded" />

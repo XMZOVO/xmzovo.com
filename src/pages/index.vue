@@ -29,10 +29,10 @@ const gotoPage = (path: string) => {
 
 <template>
   <div h-full>
-    <div px-4 pb-5 flex items-center justify-between gap10>
-      <div font-bold text-2xl>
+    <div px-5vw pb-9 flex items-center justify-between gap10>
+      <a href="/" font-bold text-2xl>
         Newborn
-      </div>
+      </a>
       <div flex items-center justify-center gap10 font-bold>
         <a v-for="item, index in navItem" :key="index" :class="[activeRoute === item.link ? 'op100' : 'op70']" hover="op100" cursor-pointer @click="gotoPage(item.link)">
           {{ item.name }}
