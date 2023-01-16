@@ -5,6 +5,7 @@ specifiers:
   '@iconify-json/carbon': ^1.1.11
   '@types/node': ^18.11.13
   '@unocss/reset': ^0.47.6
+  '@vercel/analytics': ^0.1.8
   '@vitejs/plugin-vue': ^4.0.0
   '@vue-macros/volar': ^0.5.4
   '@vue/test-utils': ^2.2.6
@@ -26,13 +27,16 @@ specifiers:
   vue: ^3.2.45
   vue-router: ^4.1.6
   vue-tsc: ^1.0.13
+  web-vitals: ^3.1.1
 
 dependencies:
+  '@vercel/analytics': 0.1.8
   '@vueuse/core': 9.6.0_vue@3.2.45
   axios: 1.2.2
   gsap: 3.11.4
   vue: 3.2.45
   vue-router: 4.1.6_vue@3.2.45
+  web-vitals: 3.1.1
 
 devDependencies:
   '@antfu/eslint-config': 0.33.1_ha6vam6werchizxrnqvarmz2zu
@@ -1033,6 +1037,12 @@ packages:
     transitivePeerDependencies:
       - rollup
     dev: true
+
+  /@vercel/analytics/0.1.8:
+    resolution: {integrity: sha512-PQrOI8BJ9qUiVJuQfnKiJd15eDjDJH9TBKsNeMrtelT4NAk7d9mBVz1CoZkvoFnHQ0OW7Xnqmr1F2nScfAnznQ==}
+    peerDependencies:
+      react: ^16.8||^17||^18
+    dev: false
 
   /@vitejs/plugin-vue/3.2.0_vite@4.0.0+vue@3.2.45:
     resolution: {integrity: sha512-E0tnaL4fr+qkdCNxJ+Xd0yM31UwMkQje76fsDVBBUCoGOUPexu2VDUYHL8P4CwV+zMvWw6nlRw19OnRKmYAJpw==}
@@ -5169,6 +5179,10 @@ packages:
   /walk-up-path/1.0.0:
     resolution: {integrity: sha512-hwj/qMDUEjCU5h0xr90KGCf0tg0/LgJbmOWgrWKYlcJZM7XvquvUJZ0G/HMGr7F7OQMOUuPHWP9JpriinkAlkg==}
     dev: true
+
+  /web-vitals/3.1.1:
+    resolution: {integrity: sha512-qvllU+ZeQChqzBhZ1oyXmWsjJ8a2jHYpH8AMaVuf29yscOPZfTQTjQFRX6+eADTdsDE8IanOZ0cetweHMs8/2A==}
+    dev: false
 
   /webidl-conversions/7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}
