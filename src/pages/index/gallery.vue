@@ -31,17 +31,18 @@ const loadedImgList = ref<boolean[]>([])
 
 watchArray(loadedImgList, async (value, oldValue) => {
   if (value.length === imageList.length) {
-    gsap.utils.toArray('.c1').forEach((line: any, i) => {
+    for (let i = 1; i <= 3; i++) {
+      const line = document.querySelector(`.c${i}`) as HTMLElement
       const speed = 200 // (in pixels per second)
-      const links = line.querySelectorAll('.imgs')
+      const links = line.querySelectorAll('.imgs') as any
 
-      const tl = verticalLoop(links, (i % 2 === 0) ? -speed : speed)
+      const tl = verticalLoop(links, (i % 2 === 0) ? speed : -speed)
 
       links.forEach((link: any) => {
         link.addEventListener('mouseenter', () => gsap.to(tl, { timeScale: 0, overwrite: true }))
         link.addEventListener('mouseleave', () => gsap.to(tl, { timeScale: 1, overwrite: true }))
       })
-    })
+    }
   }
 })
 
@@ -69,6 +70,7 @@ function verticalLoop(elements: HTMLElement[], speed: number) {
   const top = firstBounds.top - firstBounds.height - Math.abs(elements[1].getBoundingClientRect().top - firstBounds.bottom)
   const bottom = lastBounds.top
   const distance = bottom - top
+
   const duration = Math.abs(distance / speed)
   const tl = gsap.timeline({ repeat: -1 })
   const plus = speed < 0 ? '-=' : '+='
@@ -78,7 +80,6 @@ function verticalLoop(elements: HTMLElement[], speed: number) {
     let ratio = Math.abs((bottom - bounds.top) / distance)
     if (speed < 0)
       ratio = 1 - ratio
-
     tl.to(el, {
       y: plus + distance * ratio,
       duration: duration * ratio,
@@ -102,17 +103,12 @@ function imgLoaded() {
 </script>
 
 <template>
-  <div flex w-full justify-between h-full gap-2 px-10 relative>
-    <div v-for="it, i in imgColList" :key="i" flex flex-col w-full gap-2 of-y-clip hover="z-2" class="c1">
-      <div v-for="item in it" :key="item" class="imgs">
+  <div flex w-full gap-2 px-10>
+    <div v-for="it, i in imgColList" :key="i" flex flex-col w-full gap-2 of-y-clip :class="`c${i + 1}`">
+      <div v-for="item in it" :key="item" class="imgs" hover="z-2">
         <TheAiImg :src="item" @load="imgLoaded" />
       </div>
     </div>
   </div>
 </template>
 
-<style>
-::-webkit-scrollbar {
-  display: none; /* Chrome Safari */
-}
-</style>
