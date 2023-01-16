@@ -1,8 +1,7 @@
-<script>
-if (typeof (window) !== 'undefined')
-  window.location.href = 'https://zhongpeiying.com:4433/grammar'
+<script setup lang="ts">
+
 </script>
 
 <template>
-  <div />
+  <div>项目迁移中...</div>
 </template>
