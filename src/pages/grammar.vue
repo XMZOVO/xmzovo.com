@@ -31,16 +31,20 @@ const bookList = $ref<Book[]>([
 ])
 
 const activeBookList = computed(() => {
-  const res = []
-  if (bookList[0].active)
-    res.push(blueGrammar)
-  if (bookList[1].active)
-    res.push(preGrammar)
-  if (bookList[2].active)
-    res.push(masterGrammar)
-  if (bookList[3].active)
-    res.push(dicGrammar)
-  return res
+  return bookList.map((book) => {
+    switch (book.name) {
+      case '蓝宝书':
+        return book.active ? blueGrammar : []
+      case '考前对策':
+        return book.active ? preGrammar : []
+      case '完全掌握':
+        return book.active ? masterGrammar : []
+      case '文型辞典':
+        return book.active ? dicGrammar : []
+      default:
+        return null
+    }
+  })
 })
 const inputContent = ref('')
 
@@ -96,7 +100,7 @@ function nextImg() {
         <a>
           <h1>
             <span block font-600>文法查阅-3046</span>
-            <span block op50 font-500 text-sm>Ver 1.2</span>
+            <span block op50 font-500 text-sm>Ver 1.3</span>
           </h1>
         </a>
         <div :class="{ 'i-material-symbols-light-mode-outline': !isDark, 'i-material-symbols-dark-mode-outline-rounded': isDark }" cursor-pointer transition duration-500 hover="rotate-180" ml-5 @click="toggleDark()" />
@@ -139,20 +143,23 @@ function nextImg() {
               {{ i.level }}
             </div>
             <div>{{ i.title }}</div>
-            <div flex-auto />
-            <div
-              :class="{
-                'i-fa-book text-blue': index === 0,
-                'i-fa-book text-yellow': index === 1,
-                'i-fa-book text-orange': index === 2,
-                'i-fa-book text-purple': index === 3,
-              }"
-            />
+            <div flex-1 />
+            <div w-4 mr-2>
+              <div
+
+                :class="{
+                  'i-fa-book text-blue': index === 0,
+                  'i-fa-book text-yellow': index === 1,
+                  'i-fa-book text-orange': index === 2,
+                  'i-fa-book text-purple': index === 3,
+                }"
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div h-full of-hidden p="x8 t8" relative text="gray100">
+    <div h-full of-hidden p="md:x8 t8" relative text="gray100">
       <div v-if="imageSrc !== ''" absolute w-8 h-8 flex items-center justify-center left-13 top="1/2" hover="bg-op80" bg="gray700 op20" rounded-full @click="preImg">
         <div i-material-symbols-arrow-back-rounded />
       </div>
