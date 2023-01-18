@@ -1,4 +1,2 @@
 # xmzovo.com
-My personal website,build with vue and deployed by vercel.
-
-WIP
+My personal website,build with vue and vercel **WIP**
