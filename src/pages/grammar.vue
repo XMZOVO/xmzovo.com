@@ -5,7 +5,6 @@ interface Book {
   name: string
   active: boolean
 }
-
 interface Grammar {
   id: number
   title: string
@@ -22,14 +21,13 @@ let imageSrc = $ref('')
 let selectedImgPath = $ref('')
 
 const ip = 'https://zhongpeiying.com:8081'
-
+const inputContent = ref('')
 const bookList = $ref<Book[]>([
   { name: '蓝宝书', active: true },
   { name: '考前对策', active: true },
   { name: '完全掌握', active: false },
   { name: '文型辞典', active: false },
 ])
-
 const activeBookList = computed(() => {
   return bookList.map((book) => {
     switch (book.name) {
@@ -46,7 +44,6 @@ const activeBookList = computed(() => {
     }
   })
 })
-const inputContent = ref('')
 
 watch(inputContent, (val) => {
   if (val === '') {
@@ -56,13 +53,11 @@ watch(inputContent, (val) => {
     dicGrammar = []
     return
   }
-
   fetchGrammar(val)
 })
 
 async function fetchGrammar(title: string) {
   const res = await axios({ url: `${ip}/grammar/title/${title}`, method: 'GET' })
-
   if (res.data) {
     blueGrammar = res.data.blue
     preGrammar = res.data.pre
@@ -76,20 +71,16 @@ function selectGrammar(grammar: Grammar) {
   selectedImgPath = grammar.path
 }
 
-function preImg() {
-  const page = Number(selectedImgPath.split('(')[1].split(')')[0]) - 1
-  const preFix = selectedImgPath.split('(')[0]
-  const suffix = selectedImgPath.split('(')[1].split(')')[1]
-  selectedImgPath = `${preFix}(${page})${suffix}`
-  imageSrc = `${ip}/file/${preFix}(${page})${suffix}`
-}
-
-function nextImg() {
-  const page = Number(selectedImgPath.split('(')[1].split(')')[0]) + 1
-  const preFix = selectedImgPath.split('(')[0]
-  const suffix = selectedImgPath.split('(')[1].split(')')[1]
-  selectedImgPath = `${preFix}(${page})${suffix}`
-  imageSrc = `${ip}/file/${preFix}(${page})${suffix}`
+function changePage(type: 'pre' | 'next') {
+  const regex = /([^\(]*\()(\d+)(.+)/
+  const match = selectedImgPath.match(regex)
+  if (match) {
+    const preFix = match[1]
+    const page = type === 'pre' ? +match[2] - 1 : +match[2] + 1
+    const suffix = match[3]
+    selectedImgPath = `${preFix}${page}${suffix}`
+    imageSrc = `${ip}/file/${selectedImgPath}`
+  }
 }
 </script>
 
@@ -160,10 +151,10 @@ function nextImg() {
       </div>
     </div>
     <div h-full of-hidden p="md:x8 t8" relative text="gray100">
-      <div v-if="imageSrc !== ''" absolute w-8 h-8 flex items-center justify-center left-13 top="1/2" hover="bg-op80" bg="gray700 op20" rounded-full @click="preImg">
+      <div v-if="imageSrc !== ''" absolute w-8 h-8 flex items-center justify-center left-1 sm:left-10 top="1/2" hover="bg-op80" bg="gray700 op20" rounded-full @click="changePage('pre')">
         <div i-material-symbols-arrow-back-rounded />
       </div>
-      <div v-if="imageSrc !== ''" absolute w-8 h-8 flex items-center justify-center right-13 top="1/2" hover="bg-op80" bg="gray700 op20" rounded-full @click="nextImg">
+      <div v-if="imageSrc !== ''" absolute w-8 h-8 flex items-center justify-center right-5 sm:right-13 top="1/2" hover="bg-op80" bg="gray700 op20" rounded-full @click="changePage('next')">
         <div i-material-symbols-arrow-forward />
       </div>
       <div of-auto h-full>
