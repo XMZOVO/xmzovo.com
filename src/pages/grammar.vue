@@ -19,6 +19,12 @@ let masterGrammar = $ref<Grammar[]>([])
 let dicGrammar = $ref<Grammar[]>([])
 let imageSrc = $ref('')
 let selectedImgPath = $ref('')
+const pagePathInfo = computed(() => {
+  const regex = /([^\(]*\()(\d+)(.+)/
+  const match = selectedImgPath.match(regex)
+  if (match)
+    return match
+})
 
 const ip = 'https://zhongpeiying.com:8081'
 const inputContent = ref('')
@@ -72,15 +78,11 @@ function selectGrammar(grammar: Grammar) {
 }
 
 function changePage(type: 'pre' | 'next') {
-  const regex = /([^\(]*\()(\d+)(.+)/
-  const match = selectedImgPath.match(regex)
-  if (match) {
-    const preFix = match[1]
-    const page = type === 'pre' ? +match[2] - 1 : +match[2] + 1
-    const suffix = match[3]
-    selectedImgPath = `${preFix}${page}${suffix}`
-    imageSrc = `${ip}/file/${selectedImgPath}`
-  }
+  const preFix = pagePathInfo.value![1]
+  const page = type === 'pre' ? +pagePathInfo.value![2] - 1 : +pagePathInfo.value![2]! + 1
+  const suffix = pagePathInfo.value![3]
+  selectedImgPath = `${preFix}${page}${suffix}`
+  imageSrc = `${ip}/file/${selectedImgPath}`
 }
 </script>
 
@@ -150,17 +152,26 @@ function changePage(type: 'pre' | 'next') {
         </div>
       </div>
     </div>
-    <div h-full of-hidden p="md:x8 t8" relative text="gray100">
-      <div v-if="imageSrc !== ''" absolute w-8 h-8 flex items-center justify-center left-1 sm:left-10 top="1/2" hover="bg-op80" bg="gray700 op20" rounded-full @click="changePage('pre')">
+    <div h-full of-hidden p="md:l4 t8" relative text="gray100">
+      <!-- <div v-if="imageSrc !== ''" absolute w-8 h-8 flex items-center justify-center left-1 sm:left-10 top="1/2" hover="bg-op80" bg="gray700 op20" rounded-full @click="changePage('pre')">
         <div i-material-symbols-arrow-back-rounded />
       </div>
       <div v-if="imageSrc !== ''" absolute w-8 h-8 flex items-center justify-center right-5 sm:right-13 top="1/2" hover="bg-op80" bg="gray700 op20" rounded-full @click="changePage('next')">
         <div i-material-symbols-arrow-forward />
-      </div>
-      <div of-auto h-full>
+      </div> -->
+      <div of-auto h-full flex flex-col gap-5 p="x4 b-4">
         <img
+          object-cover
           :src="imageSrc"
         >
+        <div row justify-between text="sm gray400 op80" gap-2>
+          <button border="~ gray400 op60 hover:op100" transition duration-200 p="x4 y1" rounded @click="changePage('pre')">
+            上一页
+          </button>
+          <button border="~ gray400 op60 hover:op100" p="x4 y1" transition duration-200 rounded @click="changePage('next')">
+            下一页
+          </button>
+        </div>
       </div>
     </div>
   </div>
