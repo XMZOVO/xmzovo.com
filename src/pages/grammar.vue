@@ -152,26 +152,20 @@ function changePage(type: 'pre' | 'next') {
         </div>
       </div>
     </div>
-    <div h-full of-hidden p="md:l4 sm:t8" relative text="gray100">
-      <!-- <div v-if="imageSrc !== ''" absolute w-8 h-8 flex items-center justify-center left-1 sm:left-10 top="1/2" hover="bg-op80" bg="gray700 op20" rounded-full @click="changePage('pre')">
-        <div i-material-symbols-arrow-back-rounded />
-      </div>
-      <div v-if="imageSrc !== ''" absolute w-8 h-8 flex items-center justify-center right-5 sm:right-13 top="1/2" hover="bg-op80" bg="gray700 op20" rounded-full @click="changePage('next')">
-        <div i-material-symbols-arrow-forward />
-      </div> -->
-      <div v-if="imageSrc" of-auto h-full flex flex-col gap-5 p="x2 b-4">
+    <div h-full of-hidden p="md:l4 sm:t8" relative text="gray100" flex flex-col>
+      <div v-if="imageSrc" of-y-scroll of-auto h-full flex flex-col gap-5 rounded>
         <img
           object-cover
           :src="imageSrc"
         >
-        <div row justify-between text="sm gray400 op80" gap-2>
-          <button border="~ gray400 op60 hover:op100" transition duration-200 p="x4 y1" rounded @click="changePage('pre')">
-            上一页
-          </button>
-          <button border="~ gray400 op60 hover:op100" p="x4 y1" transition duration-200 rounded @click="changePage('next')">
-            下一页
-          </button>
-        </div>
+      </div>
+      <div row justify-between text="sm gray400 op80" gap-2 m="y2">
+        <button border="~ gray400 op60 hover:op100" transition duration-200 p="x4 y1" rounded @click="changePage('pre')">
+          上一页
+        </button>
+        <button border="~ gray400 op60 hover:op100" p="x4 y1" transition duration-200 rounded @click="changePage('next')">
+          下一页
+        </button>
       </div>
     </div>
   </div>
