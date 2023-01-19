@@ -152,14 +152,14 @@ function changePage(type: 'pre' | 'next') {
         </div>
       </div>
     </div>
-    <div h-full of-hidden p="md:l4 t8" relative text="gray100">
+    <div h-full of-hidden p="md:l4 sm:t8" relative text="gray100">
       <!-- <div v-if="imageSrc !== ''" absolute w-8 h-8 flex items-center justify-center left-1 sm:left-10 top="1/2" hover="bg-op80" bg="gray700 op20" rounded-full @click="changePage('pre')">
         <div i-material-symbols-arrow-back-rounded />
       </div>
       <div v-if="imageSrc !== ''" absolute w-8 h-8 flex items-center justify-center right-5 sm:right-13 top="1/2" hover="bg-op80" bg="gray700 op20" rounded-full @click="changePage('next')">
         <div i-material-symbols-arrow-forward />
       </div> -->
-      <div of-auto h-full flex flex-col gap-5 p="x4 b-4">
+      <div v-if="imageSrc" of-auto h-full flex flex-col gap-5 p="x2 b-4">
         <img
           object-cover
           :src="imageSrc"
