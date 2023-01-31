@@ -25,7 +25,6 @@ const pagePathInfo = computed(() => {
   if (match)
     return match
 })
-
 const ip = 'https://zhongpeiying.com:8081'
 const inputContent = ref('')
 const bookList = $ref<Book[]>([
@@ -160,10 +159,10 @@ function changePage(type: 'pre' | 'next') {
         >
       </div>
       <div row justify-between text="sm gray400 op80" gap-2 m="y2">
-        <button border="~ gray400 op60 hover:op100" transition duration-200 p="x4 y1" rounded @click="changePage('pre')">
+        <button border="~ gray400 op20 hover:op80" transition duration-200 p="x4 y1" rounded @click="changePage('pre')">
           上一页
         </button>
-        <button border="~ gray400 op60 hover:op100" p="x4 y1" transition duration-200 rounded @click="changePage('next')">
+        <button border="~ gray400 op20 hover:op80" p="x4 y1" transition duration-200 rounded @click="changePage('next')">
           下一页
         </button>
       </div>
