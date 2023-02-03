@@ -223,7 +223,7 @@ async function toggleLike(id: number) {
       </div>
     </div>
     <div v-if="imageSrc" h-full of-hidden p="md:l4 sm:t8" text="gray100" flex flex-col>
-      <div of-y-scroll of-auto h-full flex flex-col gap-5 rounded>
+      <div of-y-auto h-full flex flex-col gap-5 rounded>
         <img
           object-cover
           :src="imageSrc"
