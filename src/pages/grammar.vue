@@ -133,7 +133,7 @@ async function toggleLike(id: number) {
         <input v-model="feedbackMessage" placeholder="留下你的反馈" border="~ gray500 op20" bg="dark:hex-121212" rounded text-xs p="x2 y-1" flex-1 outline-none>
         <div i-carbon-send text-gray-500 cursor-pointer @click="sendFeedback" />
       </div>
-      <div id="fedbackList" flex flex-col overflow-y-auto gap-2 flex-1>
+      <div id="feedbackList" flex flex-col overflow-y-auto gap-2 flex-1>
         <div v-for="item in feedbackList" :key="item.id" w-full h-20 flex flex-col border="~ gray500 op20" text-xs rounded p-2>
           <p text-left flex-1>
             {{ item.content.length > 40 ? `${item.content.slice(0, 40)}...` : item.content }}
@@ -241,7 +241,7 @@ async function toggleLike(id: number) {
 </template>
 
 <style>
-#feedbackForm::-webkit-scrollbar {
+#feedbackList::-webkit-scrollbar {
     display: none;
 }
 </style>
