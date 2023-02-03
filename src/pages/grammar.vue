@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import axios from 'axios'
+import { onClickOutside, useElementBounding, useElementSize } from '@vueuse/core'
+import gsap from 'gsap'
 
 interface Book {
   name: string
@@ -12,6 +14,13 @@ interface Grammar {
   path: string
   level: null | string
 }
+interface Feedback {
+  id: number
+  content: string
+  sendTime: string
+  likes: number
+  status: number
+}
 
 let blueGrammar = $ref<Grammar[]>([])
 let preGrammar = $ref<Grammar[]>([])
@@ -19,6 +28,15 @@ let masterGrammar = $ref<Grammar[]>([])
 let dicGrammar = $ref<Grammar[]>([])
 let imageSrc = $ref('')
 let selectedImgPath = $ref('')
+const feedbackBtn = ref(null)
+const feebackBtnBounding = reactive(useElementBounding(feedbackBtn))
+const feedbackBtnSize = reactive(useElementSize(feedbackBtn))
+const feedbackForm = ref(null)
+onClickOutside(feedbackForm, (_) => {
+  gsap.to(feedbackForm.value, { display: 'none', duration: 0 })
+})
+let feedbackMessage = $ref('')
+let feedbackList = $ref<Feedback[]>([])
 const pagePathInfo = computed(() => {
   const regex = /([^\(]*\()(\d+)(.+)/
   const match = selectedImgPath.match(regex)
@@ -83,19 +101,71 @@ function changePage(type: 'pre' | 'next') {
   selectedImgPath = `${preFix}${page}${suffix}`
   imageSrc = `${ip}/file/${selectedImgPath}`
 }
+
+async function toggleFeedback() {
+  const x = feebackBtnBounding.x + feedbackBtnSize.width / 2
+  const y = feebackBtnBounding.y + feedbackBtnSize.height
+  gsap
+    .to(feedbackForm.value, { display: 'flex', x, y, duration: 0 })
+  gsap.from(feedbackForm.value, { opacity: 0, scaleX: 0, scaleY: 0, ease: 'back', transformOrigin: 'top left', duration: 0.3 })
+  const res = await axios.get(`${ip}/grammar/feedback`)
+  feedbackList = res.data
+}
+
+async function sendFeedback() {
+  await axios.post(`${ip}/grammar/feedback`, { content: feedbackMessage })
+  feedbackMessage = ''
+  const res = await axios.get(`${ip}/grammar/feedback`)
+  feedbackList = res.data
+}
+
+async function toggleLike(id: number) {
+  await axios.post(`${ip}/grammar/feedback/like/${id}`)
+  const res = await axios.get(`${ip}/grammar/feedback`)
+  feedbackList = res.data
+}
 </script>
 
 <template>
-  <div grid="~ sm:cols-2" gap-2 px-8 h-full of-hidden>
+  <div ref="feedbackForm" overflow-hidden absolute hidden border="~ gray500 op20" rounded bg="white dark:hex-121212" z-50>
+    <div flex-col p="2" gap-2 w-50 max-h-80 flex>
+      <div row items-center justify-center gap-1>
+        <input v-model="feedbackMessage" placeholder="留下你的反馈" border="~ gray500 op20" bg="dark:hex-121212" rounded text-xs p="x2 y-1" flex-1 outline-none>
+        <div i-carbon-send text-gray-500 cursor-pointer @click="sendFeedback" />
+      </div>
+      <div flex flex-col overflow-y-auto gap-2 flex-1>
+        <div v-for="item in feedbackList" :key="item.id" w-full h-20 flex flex-col border="~ gray500 op20" text-xs rounded p-2>
+          <p text-left flex-1>
+            {{ item.content.length > 40 ? `${item.content.slice(0, 40)}...` : item.content }}
+          </p>
+          <div row justify-end items-center gap-1>
+            <div i-carbon-thumbs-up cursor-pointer @click="toggleLike(item.id)" />
+            <p text-left w-5>
+              {{ item.likes }}
+            </p>
+            <div
+              :class="{
+                'i-carbon-ai-status-queued op40': item.status === 0,
+                'i-carbon-ai-status-in-progress text-orange': item.status === 1,
+                'i-carbon-ai-status-complete text-green': item.status === 2,
+              }"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div grid="~ md:cols-2" gap-2 px-8 h-full of-hidden>
     <div h-full grid="~ rows-[min-content_min-content_1fr]" of-hidden>
       <div row text-left py-4 items-center>
         <a>
           <h1>
             <span block font-600>文法查阅-3046</span>
-            <span block op50 font-500 text-sm>Ver 1.3</span>
+            <span block op50 font-500 text-sm>Ver 1.4</span>
           </h1>
         </a>
         <div :class="{ 'i-material-symbols-light-mode-outline': !isDark, 'i-material-symbols-dark-mode-outline-rounded': isDark }" cursor-pointer transition duration-500 hover="rotate-180" ml-5 @click="toggleDark()" />
+        <div ref="feedbackBtn" i-carbon-ibm-watson-assistant cursor-pointer transition duration-500 ml-5 @click="toggleFeedback" />
         <div flex-auto />
         <div row items-center gap4 text-sm>
           <div v-for="item, index in bookList" :key="item.name">
@@ -109,7 +179,7 @@ function changePage(type: 'pre' | 'next') {
                   'grayscale': !item.active,
                 }"
               />
-              <div hidden sm:block>
+              <div hidden lg:block>
                 {{ item.name }}
               </div>
             </div>
@@ -169,3 +239,9 @@ function changePage(type: 'pre' | 'next') {
     </div>
   </div>
 </template>
+
+<style>
+::-webkit-scrollbar {
+    display: none;
+}
+</style>
