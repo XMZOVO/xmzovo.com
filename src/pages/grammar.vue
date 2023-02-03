@@ -107,7 +107,8 @@ async function toggleFeedback() {
   const y = feebackBtnBounding.y + feedbackBtnSize.height
   gsap
     .to(feedbackForm.value, { display: 'flex', x, y, duration: 0 })
-  gsap.from(feedbackForm.value, { opacity: 0, scaleX: 0, scaleY: 0, ease: 'back', transformOrigin: 'top left', duration: 0.3 })
+  gsap
+    .from(feedbackForm.value, { opacity: 0, scaleX: 0, scaleY: 0, ease: 'back', transformOrigin: 'top left', duration: 0.3 })
   const res = await axios.get(`${ip}/grammar/feedback`)
   feedbackList = res.data
 }
@@ -165,7 +166,7 @@ async function toggleLike(id: number) {
           </h1>
         </a>
         <div :class="{ 'i-material-symbols-light-mode-outline': !isDark, 'i-material-symbols-dark-mode-outline-rounded': isDark }" cursor-pointer transition duration-500 hover="rotate-180" ml-3 md:ml-5 @click="toggleDark()" />
-        <div ref="feedbackBtn" i-carbon-ibm-watson-assistant cursor-pointer transition duration-500 ml-3 md:ml-5 @click="toggleFeedback" />
+        <div ref="feedbackBtn" i-carbon-ibm-watson-assistant hidden sm:block cursor-pointer transition duration-500 ml-3 md:ml-5 @click="toggleFeedback" />
         <div flex-auto />
         <div row items-center gap4 text-sm>
           <div v-for="item, index in bookList" :key="item.name">
