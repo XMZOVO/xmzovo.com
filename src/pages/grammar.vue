@@ -164,8 +164,8 @@ async function toggleLike(id: number) {
             <span block op50 font-500 text-sm>Ver 1.4</span>
           </h1>
         </a>
-        <div :class="{ 'i-material-symbols-light-mode-outline': !isDark, 'i-material-symbols-dark-mode-outline-rounded': isDark }" cursor-pointer transition duration-500 hover="rotate-180" ml-5 @click="toggleDark()" />
-        <div ref="feedbackBtn" i-carbon-ibm-watson-assistant cursor-pointer transition duration-500 ml-5 @click="toggleFeedback" />
+        <div :class="{ 'i-material-symbols-light-mode-outline': !isDark, 'i-material-symbols-dark-mode-outline-rounded': isDark }" cursor-pointer transition duration-500 hover="rotate-180" ml-3 md:ml-5 @click="toggleDark()" />
+        <div ref="feedbackBtn" i-carbon-ibm-watson-assistant cursor-pointer transition duration-500 ml-3 md:ml-5 @click="toggleFeedback" />
         <div flex-auto />
         <div row items-center gap4 text-sm>
           <div v-for="item, index in bookList" :key="item.name">
