@@ -228,7 +228,7 @@ async function toggleLike(id: number) {
           :src="imageSrc"
         >
       </div>
-      <div row justify-between text="sm gray400 op80" gap-2 m="y2">
+      <div row justify-end text="sm gray400 op80" gap-2 m="y2">
         <button border="~ gray400 op20 hover:op80" transition duration-200 p="x4 y1" rounded @click="changePage('pre')">
           上一页
         </button>
