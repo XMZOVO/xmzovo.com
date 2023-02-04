@@ -125,6 +125,10 @@ async function toggleLike(id: number) {
   const res = await axios.get(`${ip}/grammar/feedback`)
   feedbackList = res.data
 }
+
+function navigateToBiliBili() {
+  window.open('https://space.bilibili.com/65988295/')
+}
 </script>
 
 <template>
@@ -161,7 +165,7 @@ async function toggleLike(id: number) {
       <div row text-left py-4 items-center>
         <a>
           <h1>
-            <span block font-600>文法查阅-3046</span>
+            <span block font-600 cursor-pointer @click="navigateToBiliBili">文法查阅-3046</span>
             <span block op50 font-500 text-sm>Ver 1.4</span>
           </h1>
         </a>
