@@ -2,6 +2,7 @@
 import axios from 'axios'
 import { onClickOutside, useElementBounding, useElementSize } from '@vueuse/core'
 import gsap from 'gsap'
+import { isRomaji, toKana } from 'wanakana'
 
 interface Book {
   name: string
@@ -67,6 +68,7 @@ const activeBookList = computed(() => {
     }
   })
 })
+const currentVersion = $ref('1.5')
 
 watch(inputContent, (val) => {
   if (val === '') {
@@ -76,6 +78,8 @@ watch(inputContent, (val) => {
     dicGrammar = []
     return
   }
+  if (isRomaji(val))
+    val = toKana(val)
   fetchGrammar(val)
 })
 
@@ -132,7 +136,7 @@ function navigateToBiliBili() {
 </script>
 
 <template>
-  <div ref="feedbackForm" overflow-hidden absolute hidden border="~ gray500 op20" rounded bg="white dark:hex-121212" z-50>
+  <div ref="feedbackForm" overflow-hidden absolute hidden border="~ gray500 op20" rounded bg="white dark:hex-121212" z-2>
     <div flex-col p="2" gap-2 w-50 max-h-80 flex>
       <div row items-center justify-center gap-1>
         <input v-model="feedbackMessage" placeholder="留下你的反馈" border="~ gray500 op20" bg="dark:hex-121212" rounded text-xs p="x2 y-1" flex-1 outline-none>
@@ -166,7 +170,7 @@ function navigateToBiliBili() {
         <a>
           <h1>
             <span block font-600 cursor-pointer @click="navigateToBiliBili">文法查阅-3046</span>
-            <span block op50 font-500 text-sm>Ver 1.4</span>
+            <span block op50 font-500 text-sm>Ver {{ currentVersion }}</span>
           </h1>
         </a>
         <div :class="{ 'i-material-symbols-light-mode-outline': !isDark, 'i-material-symbols-dark-mode-outline-rounded': isDark }" cursor-pointer transition duration-500 hover="rotate-180" ml-3 md:ml-5 @click="toggleDark()" />
@@ -192,7 +196,7 @@ function navigateToBiliBili() {
         </div>
       </div>
       <div row items-center border="~ rounded gray-400 op20" font-200 text-2xl shadow relative>
-        <input v-model="inputContent" p="x6 y4" autocomplete="off" type="text" w-full placeholder="日本語！" bg-transparent border-none outline-none>
+        <input v-model="inputContent" p="x6 y4" autocomplete="off" type="text" w-full placeholder="日本語！(支持罗马字)" bg-transparent border-none outline-none>
         <div v-if="inputContent !== ''" cursor-pointer mr-3 text="gray400 op60" i-carbon-close @click="inputContent = ''" />
       </div>
       <div border="l b r gray-400 op20" mx-2 of-auto>
