@@ -40,7 +40,7 @@ onMounted(() => {
           Ver1.6 更新
         </h1>
         <div flex flex-col text-start items-start px-10 gap-3 pb-5 select="none">
-          <div>🫠 修复了服务器遭受攻击导致的搜索卡顿</div>
+          <div>🫠 修复了搜索和图片加载卡顿</div>
           <div>🤔 添加了初版图片大图预览功能</div>
           <div>📧 反馈功能改为邮件发送</div>
         </div>
