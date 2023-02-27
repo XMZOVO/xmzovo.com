@@ -23,6 +23,7 @@ let masterGrammar = $ref<Grammar[]>([])
 let dicGrammar = $ref<Grammar[]>([])
 let imageSrc = $ref('')
 let selectedImgPath = $ref('')
+const newFeatureVisible = $ref(false)
 const previewVisible = $ref(false)
 const feedbackBtn = ref(null)
 const feebackBtnBounding = reactive(useElementBounding(feedbackBtn))
@@ -134,8 +135,14 @@ function navigateToBiliBili() {
         <a>
           <h1>
             <span block font-600 cursor-pointer @click="navigateToBiliBili">文法查阅-3046</span>
-            <span block op50 font-500 text-sm flex>Ver {{ currentVersion }}
-            </span>
+            <div flex items-center gap="2">
+              <span block op50 font-500 text-sm flex>Ver {{ currentVersion }}
+              </span>
+              <span
+                cursor-pointer bg="red op60" hover="bg-op100" transition-all duration-250 rounded-sm px-1
+                text="white xs" @click="() => { newFeatureVisible = true }"
+              >New</span>
+            </div>
           </h1>
         </a>
         <div :class="{ 'i-material-symbols-light-mode-outline': !isDark, 'i-material-symbols-dark-mode-outline-rounded': isDark }" cursor-pointer transition duration-500 hover="rotate-180" ml-3 md:ml-5 @click="toggleDark()" />
@@ -215,6 +222,7 @@ function navigateToBiliBili() {
     </div>
   </div>
   <PreviewImg v-model="previewVisible" :image-src="imageSrc" />
+  <Modal v-model="newFeatureVisible" />
 </template>
 
 <style>
