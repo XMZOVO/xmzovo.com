@@ -110,7 +110,7 @@ async function toggleFeedback() {
 }
 
 async function sendFeedback() {
-  axios({ url: `${ip}/sendEmail`, method: 'POST', params: { message: feedbackMessage } })
+  axios({ url: `${ip}/sendEmail`, method: 'POST', params: { content: feedbackMessage } })
   feedbackMessage = ''
 }
 
