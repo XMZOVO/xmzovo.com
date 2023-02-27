@@ -23,6 +23,7 @@ export default defineConfig({
         rewrite: path => path.replace(/^\/api/, ''),
       },
     },
+    host: '0.0.0.0',
   },
   plugins: [
     VueMacros({

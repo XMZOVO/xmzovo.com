@@ -1,14 +1,7 @@
 {
-  "cSpell.words": [
-    "Vitesse",
-    "vueuse"
-  ],
   "prettier.enable": false,
+  "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  },
-  "files.associations": {
-    "*.css": "postcss"
-  },
-  "editor.formatOnSave": false
+  }
 }
