@@ -79,7 +79,7 @@ watch(inputContent, (val) => {
 })
 
 async function fetchGrammar(title: string) {
-  const res = await axios({ url: `${ip}/getGrammar`, method: 'GET', params: { title } })
+  const res = await axios({ url: `${ip}/getGrammar/${title}`, method: 'GET' })
   if (res.data) {
     blueGrammar = res.data.blue
     preGrammar = res.data.pre
