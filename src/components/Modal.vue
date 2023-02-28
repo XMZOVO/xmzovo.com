@@ -44,7 +44,7 @@ onMounted(() => {
           <div>🤔 添加了初版图片大图预览功能</div>
           <div>📧 反馈功能改为邮件发送</div>
         </div>
-        <div text-lg absolute top-2 right-2 i-carbon-close @click.stop="show = false" />
+        <button text-lg absolute top-2 right-2 i-carbon-close @click.stop="show = false" />
       </div>
     </div>
   </div>
