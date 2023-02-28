@@ -33,17 +33,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="modalRef" hidden @click="show = false">
+  <div ref="modalRef" hidden>
     <div absolute inset-0 z-0 bg="black op70" flex items-center justify-center>
-      <div w-sm bg="white dark:hex-121212" rounded-xl>
-        <h1 font-bold text-lg p="t5 b3">
+      <div relative py-5 mx-5 w-sm bg="white dark:hex-121212" rounded-xl flex flex-col justify-center items-center>
+        <h1 font-bold text-lg p="b3">
           Ver1.6 更新
         </h1>
-        <div flex flex-col text-start items-start px-10 gap-3 pb-5 select="none">
+        <div flex flex-col text-start items-start gap-3 select="none">
           <div>🫠 修复了搜索和图片加载卡顿</div>
           <div>🤔 添加了初版图片大图预览功能</div>
           <div>📧 反馈功能改为邮件发送</div>
         </div>
+        <div text-lg absolute top-2 right-2 i-carbon-close @click.stop="show = false" />
       </div>
     </div>
   </div>

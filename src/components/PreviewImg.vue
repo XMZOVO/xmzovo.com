@@ -47,13 +47,13 @@ function changePage(type: 'pre' | 'next') {
       absolute items-center justify-center flex
       z-0 inset-0 bg="black op70" @click="close"
     >
-      <div rounded="full" bg="gray900" z-1 op60 p-2 absolute left-10 bottom-10 cursor-pointer @click.stop="changePage('pre')">
+      <button rounded="full" bg="gray900" z-1 op60 p-2 absolute left-10 bottom-10 @click.stop="changePage('pre')">
         <div text="gray200" i-carbon-arrow-left />
-      </div>
+      </button>
       <img :src="imageSrc" h="7/8" object-contain>
-      <div rounded="full" bg="gray900" op60 p-2 absolute right-10 bottom-10 cursor-pointer @click.stop="changePage('next')">
+      <button rounded="full" bg="gray900" op60 p-2 absolute right-10 bottom-10 @click.stop="changePage('next')">
         <div text="gray200" z-1 i-carbon-arrow-right />
-      </div>
+      </button>
     </div>
   </div>
 </template>
