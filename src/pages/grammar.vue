@@ -221,7 +221,7 @@ function navigateToBiliBili() {
       </div>
     </div>
   </div>
-  <PreviewImg v-model="previewVisible" :image-src="imageSrc" />
+  <PreviewImg v-model="previewVisible" :image-src="imageSrc" @change-page="changePage" />
   <Modal v-model="newFeatureVisible" />
 </template>
 
