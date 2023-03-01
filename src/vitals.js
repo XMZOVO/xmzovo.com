@@ -1,4 +1,4 @@
-const vitalsUrl = 'https://api.vercel.com/v1/vitals'
+const vitalsUrl = 'https://vitals.vercel-analytics.com/v1/vitals'
 
 function getConnectionSpeed() {
   return 'connection' in navigator
@@ -10,6 +10,7 @@ function getConnectionSpeed() {
 
 export function sendToVercelAnalytics(metric) {
   const analyticsId = import.meta.env.VERCEL_ANALYTICS_ID
+  console.log('analyticsId', analyticsId)
   if (!analyticsId)
     return
 
