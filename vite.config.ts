@@ -61,6 +61,9 @@ export default defineConfig({
     // see unocss.config.ts for config
     Unocss(),
   ],
+  define: {
+    'import.meta.env.VERCEL_ANALYTICS_ID': JSON.stringify(process.env.VERCEL_ANALYTICS_ID),
+  },
 
   // https://github.com/vitest-dev/vitest
   test: {

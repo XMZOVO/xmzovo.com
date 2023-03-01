@@ -16,7 +16,6 @@ interface Grammar {
   path: string
   level: null | number
 }
-
 let blueGrammar = $ref<Grammar[]>([])
 let preGrammar = $ref<Grammar[]>([])
 let masterGrammar = $ref<Grammar[]>([])
