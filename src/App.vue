@@ -7,6 +7,7 @@ if (analyticsId) {
     path: location.pathname,
     params: location.search,
     analyticsId,
+    debug: import.meta.env.DEV,
   })
 }
 </script>
