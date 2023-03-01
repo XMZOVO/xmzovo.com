@@ -2,8 +2,6 @@
 import { webVitals } from './vitals'
 
 const analyticsId = import.meta.env.VERCEL_ANALYTICS_ID
-console.log('analyticsId', analyticsId)
-
 if (analyticsId) {
   webVitals({
     path: location.pathname,
