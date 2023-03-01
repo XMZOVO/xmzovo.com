@@ -10,7 +10,7 @@ function getConnectionSpeed() {
 
 export function sendToVercelAnalytics(metric) {
   const analyticsId = import.meta.env.VERCEL_ANALYTICS_ID
-  console.log('analyticsId', analyticsId)
+  console.log(metric)
   if (!analyticsId)
     return
 
