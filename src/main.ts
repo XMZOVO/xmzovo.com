@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import routes from 'virtual:generated-pages'
 import { inject } from '@vercel/analytics'
 import App from './App.vue'
+import reportWebVitals from './reportWebVitals'
+import { sendToVercelAnalytics } from './vitals'
 
 import '@unocss/reset/tailwind.css'
 import './styles/main.css'
@@ -16,4 +18,6 @@ const router = createRouter({
 })
 app.use(router)
 app.mount('#app')
+
+reportWebVitals(sendToVercelAnalytics)
 
