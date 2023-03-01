@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const navItem = $ref<{ name: string; link: string }[]>([
-  {
-    name: 'AI Gallery',
-    link: '/gallery',
-  },
+  // {
+  //   name: 'AI Gallery',
+  //   link: '/gallery',
+  // },
   {
     name: 'Nonsense',
     link: '/nonsense',
