@@ -1,8 +1,16 @@
 <script setup lang="ts">
-import reportWebVitals from './reportWebVitals'
-import { sendToVercelAnalytics } from './vitals'
+import { webVitals } from './vitals'
 
-reportWebVitals(sendToVercelAnalytics)
+const analyticsId = import.meta.env.VERCEL_ANALYTICS_ID
+console.log('analyticsId', analyticsId)
+
+if (analyticsId) {
+  webVitals({
+    path: location.pathname,
+    params: location.search,
+    analyticsId,
+  })
+}
 </script>
 
 <template>

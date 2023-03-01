@@ -1,24 +1,28 @@
+import { onCLS, onFCP, onFID, onLCP, onTTFB } from 'web-vitals'
+
 const vitalsUrl = 'https://vitals.vercel-analytics.com/v1/vitals'
 
 function getConnectionSpeed() {
-  return 'connection' in navigator
-    && navigator.connection
-    && 'effectiveType' in navigator.connection
+  return 'connection' in navigator && navigator.connection && 'effectiveType' in navigator.connection
     ? navigator.connection.effectiveType
     : ''
 }
 
-export function sendToVercelAnalytics(metric) {
-  const analyticsId = import.meta.env.VERCEL_ANALYTICS_ID
-  console.log(metric)
-  if (!analyticsId)
-    return
+/**
+ * @param {import("web-vitals").Metric} metric
+ * @param {{ params: { [s: string]: any; } | ArrayLike<any>; path: string; analyticsId: string; debug: boolean; }} options
+ */
+export function sendToAnalytics(metric, options) {
+  const page = Object.entries(options.params).reduce(
+    (acc, [key, value]) => acc.replace(value, `[${key}]`),
+    options.path,
+  )
 
   const body = {
-    dsn: analyticsId,
+    dsn: options.analyticsId,
     id: metric.id,
-    page: window.location.pathname,
-    href: window.location.href,
+    page,
+    href: location.href,
     event_name: metric.name,
     value: metric.value.toString(),
     speed: getConnectionSpeed(),
@@ -38,5 +42,21 @@ export function sendToVercelAnalytics(metric) {
       credentials: 'omit',
       keepalive: true,
     })
+  }
+}
+
+/**
+ * @param {any} options
+ */
+export function webVitals(options) {
+  try {
+    onFID(metric => sendToAnalytics(metric, options))
+    onTTFB(metric => sendToAnalytics(metric, options))
+    onLCP(metric => sendToAnalytics(metric, options))
+    onCLS(metric => sendToAnalytics(metric, options))
+    onFCP(metric => sendToAnalytics(metric, options))
+  }
+  catch (err) {
+    console.error('[Analytics]', err)
   }
 }
