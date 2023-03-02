@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { webVitals } from './vitals'
+// import { webVitals } from './vitals'
 
-const analyticsId = import.meta.env.VERCEL_ANALYTICS_ID
-if (analyticsId) {
-  webVitals({
-    path: location.pathname,
-    params: location.search,
-    analyticsId,
-    debug: import.meta.env.DEV,
-  })
-}
+// const analyticsId = import.meta.env.VERCEL_ANALYTICS_ID
+// if (analyticsId) {
+//   webVitals({
+//     path: location.pathname,
+//     params: location.search,
+//     analyticsId,
+//     debug: import.meta.env.DEV,
+//   })
+// }
 </script>
 
 <template>
