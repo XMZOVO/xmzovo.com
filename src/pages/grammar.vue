@@ -101,8 +101,13 @@ function changePage(type: 'pre' | 'next') {
 }
 
 async function toggleFeedback() {
-  const x = feebackBtnBounding.x + feedbackBtnSize.width / 2
-  const y = feebackBtnBounding.y + feedbackBtnSize.height
+  let x
+  if (window.innerWidth < 640)
+    x = feebackBtnBounding.x / 2 + feedbackBtnSize.width / 2
+  else
+    x = feebackBtnBounding.x + feedbackBtnSize.width / 2
+
+  const y = feebackBtnBounding.y + feedbackBtnSize.height + 2
   gsap
     .to(feedbackForm.value, { display: 'flex', x, y, duration: 0 })
   gsap
@@ -112,6 +117,7 @@ async function toggleFeedback() {
 async function sendFeedback() {
   axios({ url: `${ip}/sendEmail`, method: 'POST', params: { content: feedbackMessage } })
   feedbackMessage = ''
+  gsap.to(feedbackForm.value, { display: 'none', duration: 0 })
 }
 
 function navigateToBiliBili() {
@@ -123,8 +129,10 @@ function navigateToBiliBili() {
   <div ref="feedbackForm" overflow-hidden absolute hidden border="~ gray500 op20" rounded bg="white dark:hex-121212" z-2>
     <div flex-col p="2" gap-2 w-50 max-h-80 flex>
       <div row items-center justify-center gap-1>
-        <input v-model="feedbackMessage" placeholder="反馈会发往开发者邮箱" border="~ gray500 op20" bg="dark:hex-121212" rounded text-xs p="x2 y-1" flex-1 outline-none>
-        <div i-carbon-send text-gray-500 cursor-pointer @click="sendFeedback" />
+        <form flex-1>
+          <input v-model="feedbackMessage" w-full inputmode="text" placeholder="反馈会发往开发者邮箱" border="~ gray500 op20" bg="dark:hex-121212" rounded text-xs p="x2 y-1" flex-1 outline-none>
+        </form>
+        <div i-carbon-send text="gray-500 op60" cursor-pointer @click="sendFeedback" />
       </div>
     </div>
   </div>
@@ -145,7 +153,7 @@ function navigateToBiliBili() {
           </h1>
         </a>
         <div :class="{ 'i-material-symbols-light-mode-outline': !isDark, 'i-material-symbols-dark-mode-outline-rounded': isDark }" cursor-pointer transition duration-500 hover="rotate-180" ml-3 md:ml-5 @click="toggleDark()" />
-        <div ref="feedbackBtn" i-carbon-ibm-watson-assistant hidden sm:block cursor-pointer transition duration-500 ml-3 md:ml-5 @click="toggleFeedback" />
+        <div ref="feedbackBtn" i-carbon-ibm-watson-assistant sm:block cursor-pointer transition duration-500 ml-3 md:ml-5 @click="toggleFeedback" />
         <div flex-auto />
         <div row items-center gap4 text-sm>
           <div v-for="item, index in bookList" :key="item.name">

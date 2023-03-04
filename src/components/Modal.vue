@@ -49,10 +49,9 @@ const navToTest = () => {
         </h1>
         <div flex flex-col text-start items-start gap-3 select="none">
           <div>🎉 太方便了！全新的工具书与真题存储库</div>
-          <div flex items-center text="lg">
-            🫶
+          <div>
             <span text="xs" op60>
-              PS:任何想要添加的书都可以从反馈功能发送
+              🫶 PS:任何想要添加的书都可以从反馈功能发送
             </span>
           </div>
           <div flex w-full justify-between gap-5>
