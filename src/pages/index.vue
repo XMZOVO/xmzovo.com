@@ -76,6 +76,10 @@ function animation(time: number) {
     model.rotation.z = time * 0.0005
   renderer.render(scene, camera)
 }
+
+onUnmounted(() => {
+  renderer.dispose()
+})
 </script>
 
 <template>
