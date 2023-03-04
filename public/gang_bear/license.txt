@@ -1,0 +1,11 @@
+Model Information:
+* title:	GANG BEAR
+* source:	https://sketchfab.com/3d-models/gang-bear-1ec26f7ad1644a8d874d7504f523e0bf
+* author:	ZIRODESIGN (https://sketchfab.com/zirodesign)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "GANG BEAR" (https://sketchfab.com/3d-models/gang-bear-1ec26f7ad1644a8d874d7504f523e0bf) by ZIRODESIGN (https://sketchfab.com/zirodesign) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

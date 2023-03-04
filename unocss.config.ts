@@ -13,6 +13,7 @@ export default defineConfig({
     ['btn', 'px-4 py-1 rounded inline-block bg-teal-600 text-white cursor-pointer hover:bg-teal-700 disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50'],
     ['icon-btn', 'text-[0.9em] inline-block cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-teal-600 !outline-none'],
     ['row', 'flex flex-row'],
+    ['home-card', 'hover-z-50 hover-scale-105 shadow-lg cursor-pointer select-none transition-all'],
   ],
   presets: [
     presetUno(),
@@ -22,10 +23,11 @@ export default defineConfig({
       warn: true,
     }),
     presetWebFonts({
+      provider: 'google',
       fonts: {
-        sans: 'DM Sans',
-        serif: 'DM Serif Display',
-        mono: 'DM Mono',
+        sans: 'Roboto',
+        mono: ['Fira Code', 'Fira Mono:400,700'],
+        lobster: 'Lobster',
       },
     }),
   ],
