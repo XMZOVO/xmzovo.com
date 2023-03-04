@@ -62,7 +62,7 @@ const activeBookList = computed(() => {
     }
   })
 })
-const currentVersion = $ref('1.6')
+const currentVersion = $ref('1.7')
 
 watch(inputContent, (val) => {
   if (val === '') {
@@ -138,7 +138,7 @@ function navigateToBiliBili() {
               <span block op50 font-500 text-sm flex>Ver {{ currentVersion }}
               </span>
               <span
-                cursor-pointer bg="red op60" hover="bg-op100" transition-all duration-250 rounded-sm px-1
+                cursor-pointer bg="orange op80" hover="bg-op100" transition-all duration-250 rounded-sm px-1
                 text="white xs" @click="() => { newFeatureVisible = true }"
               >New</span>
             </div>
