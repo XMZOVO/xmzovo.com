@@ -1,16 +1,11 @@
 <script setup lang="ts">
 import gsap from 'gsap'
-import { PerspectiveCamera, Scene, WebGLRenderer } from 'three'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 const gradCover = ref<HTMLDivElement | null>(null)
 const card = ref<HTMLDivElement | null>(null)
 const gradCoverTl = gsap.timeline({ paused: true })
-const canvas = ref<HTMLCanvasElement | null>(null)
 
 onMounted(() => {
-  initThree()
   gradCoverTl.to(gradCover.value, { duration: 0, display: 'block' })
     .to(gradCover.value, { duration: 0.2, opacity: 0.8 })
 })
@@ -38,48 +33,6 @@ const navToStorage = () => {
 const navToGithub = () => {
   window.open('https://github.com/XMZOVO')
 }
-
-let renderer: WebGLRenderer
-let camera: PerspectiveCamera
-let scene: Scene
-let model: any
-function initThree() {
-  camera = new PerspectiveCamera(70, canvas.value!.parentElement!.clientWidth
-        / canvas.value!.parentElement!.clientHeight, 0.01, 100)
-  camera.position.set (0, 10, -0.2)
-  camera.quaternion.set(-0.7, 0.016, 0.016, 0.7)
-  camera.rotation.set(-1.5, -1.35, -0.013)
-
-  scene = new Scene()
-
-  const loader = new GLTFLoader().setPath('/gang_bear/')
-  loader.load('scene.gltf', (gltf) => {
-    scene.add(gltf.scene)
-    model = gltf.scene.children[0]
-  })
-
-  renderer = new WebGLRenderer({ canvas: canvas.value!, antialias: true })
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio))
-  renderer.setClearColor(0x49A0C6, 1)
-  renderer.setAnimationLoop(animation)
-
-  const controls = new OrbitControls(camera, canvas.value!)
-  controls.addEventListener('change', animation) // use if there is no animation loop
-  controls.minDistance = 2
-  controls.maxDistance = 10
-  controls.target.set(0, 0, -0.2)
-  controls.update()
-}
-
-function animation(time: number) {
-  if (model)
-    model.rotation.z = time * 0.0005
-  renderer.render(scene, camera)
-}
-
-onUnmounted(() => {
-  renderer.dispose()
-})
 </script>
 
 <template>
@@ -141,8 +94,8 @@ onUnmounted(() => {
     </div>
     <div flex-grow flex flex-col sm="flex-row h-1/3" gap="0.5">
       <div w="full" flex sm="flex-row w-4/7" flex-col h-full>
-        <div sm="w-1/2" w="full" rounded="lg" h-full>
-          <canvas ref="canvas" flex-1 rounded="lg" w-full h-full />
+        <div sm="w-1/2" w="full" rounded="lg" h-full flex items-center justify-center>
+          <img src="/Star2.png" w="2/5">
         </div>
         <div hidden sm="w-1/2 flex" w="full" home-card rounded="lg" items-center justify-center>
           <h1 text="2xl">
