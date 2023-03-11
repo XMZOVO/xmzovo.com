@@ -126,7 +126,7 @@ function navigateToBiliBili() {
 </script>
 
 <template>
-  <!-- <div ref="feedbackForm" overflow-hidden absolute hidden border="~ gray500 op20" rounded bg="white dark:hex-121212" z-2>
+  <div ref="feedbackForm" overflow-hidden absolute hidden border="~ gray500 op20" rounded bg="white dark:hex-121212" z-2>
     <div flex-col p="2" gap-2 w-50 max-h-80 flex>
       <div row items-center justify-center gap-1>
         <form flex-1>
@@ -145,10 +145,10 @@ function navigateToBiliBili() {
             <div flex items-center gap="2">
               <span block op50 font-500 text-sm flex>Ver {{ currentVersion }}
               </span>
-              <span
+              <!-- <span
                 cursor-pointer bg="orange op80" hover="bg-op100" transition-all duration-250 rounded-sm px-1
                 text="white xs" @click="() => { newFeatureVisible = true }"
-              >New</span>
+              >New</span> -->
             </div>
           </h1>
         </a>
@@ -229,10 +229,10 @@ function navigateToBiliBili() {
     </div>
   </div>
   <PreviewImg v-model="previewVisible" :image-src="imageSrc" @change-page="changePage" />
-  <Modal v-model="newFeatureVisible" /> -->
-  <div w-full h-full flex items-center justify-center>
+  <Modal v-model="newFeatureVisible" />
+  <!-- <div w-full h-full flex items-center justify-center>
     服务器检修中
-  </div>
+  </div> -->
 </template>
 
 <style>
