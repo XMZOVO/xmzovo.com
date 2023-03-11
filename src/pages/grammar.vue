@@ -126,7 +126,7 @@ function navigateToBiliBili() {
 </script>
 
 <template>
-  <div ref="feedbackForm" overflow-hidden absolute hidden border="~ gray500 op20" rounded bg="white dark:hex-121212" z-2>
+  <!-- <div ref="feedbackForm" overflow-hidden absolute hidden border="~ gray500 op20" rounded bg="white dark:hex-121212" z-2>
     <div flex-col p="2" gap-2 w-50 max-h-80 flex>
       <div row items-center justify-center gap-1>
         <form flex-1>
@@ -229,7 +229,10 @@ function navigateToBiliBili() {
     </div>
   </div>
   <PreviewImg v-model="previewVisible" :image-src="imageSrc" @change-page="changePage" />
-  <Modal v-model="newFeatureVisible" />
+  <Modal v-model="newFeatureVisible" /> -->
+  <div w-full h-full flex items-center justify-center>
+    服务器检修中
+  </div>
 </template>
 
 <style>
